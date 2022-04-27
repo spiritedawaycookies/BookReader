@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>图书管理功能</title>
+    <title>Books Management</title>
     <style>
         #dlgBook{
             padding: 10px
@@ -15,7 +15,7 @@
 
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" id="btnAdd" onclick="showCreate()">添加</button>
+            <button class="layui-btn layui-btn-sm" id="btnAdd" onclick="showCreate()">Add</button>
         </div>
     </script>
 
@@ -24,7 +24,7 @@
 
 
 <div class="layui-container">
-    <blockquote class="layui-elem-quote">图书列表</blockquote>
+    <blockquote class="layui-elem-quote">Book List</blockquote>
 	<!-- 数据表格 -->
     <table id="grdBook" lay-filter="grdBook"></table>
 </div>
@@ -36,33 +36,33 @@
             <select id="categoryId" name="categoryId" lay-verify="required" lay-filter=
 			"categoryId">
                 <option value=""></option>
-                <option value="1">前端</option>
-				<option value="2">后端</option>
-				<option value="3">测试</option>
-				<option value="4">产品</option>
+                <option value="1">Fiction</option>
+				<option value="2">Non-fiction</option>
+				<option value="3">Children's</option>
+				<option value="4">Biography</option>
             </select>
 
         </div>
         <div class="layui-form-item">
 			<!-- 书名 -->
-            <input type="text" id="bookName" name="bookName" required lay-verify="required" placeholder="请输入书名"
+            <input type="text" id="bookName" name="bookName" required lay-verify="required" placeholder="Enter book name"
                    autocomplete="off" class="layui-input">
         </div>
 
 
         <div class="layui-form-item">
 			<!-- 子标题 -->
-            <input type="text" id="subTitle" name="subTitle" required lay-verify="required" placeholder="请输入子标题"
+            <input type="text" id="subTitle" name="subTitle" required lay-verify="required" placeholder="Enter short introduction"
                    autocomplete="off" class="layui-input">
         </div>
 
         <div class="layui-form-item">
 			<!-- 作者 -->
-            <input type="text" id="author" name="author" required lay-verify="required" placeholder="请输入作者信息"
+            <input type="text" id="author" name="author" required lay-verify="required" placeholder="Enter author"
                    autocomplete="off" class="layui-input">
         </div>
 
-        <div style="margin-top: 30px;font-size: 130%">图书介绍(默认第一图将作为图书封面)</div>
+        <div style="margin-top: 30px;font-size: 130%">Details</div>
         <div class="layui-form-item" >
 			<!-- wangEditor编辑器 -->
             <div id="editor" style="width: 100%">
@@ -75,7 +75,7 @@
         <input id="optype"  type="hidden">
         <div class="layui-form-item" style="text-align: center">
 			<!-- 提交按钮 -->
-            <button class="layui-btn" lay-submit="" lay-filter="btnSubmit">立即提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="btnSubmit">Submit</button>
         </div>
     </form>
 </div>
@@ -93,13 +93,13 @@
         , url: "/management/book/list" //数据接口
         , page: true //开启分页
         , cols: [[ //表头
-            {field: 'bookName', title: '书名', width: '300'}
-            , {field: 'subTitle', title: '子标题', width: '200'}
-            , {field: 'author', title: '作者', width: '200'}
-            , {type: 'space', title: '操作', width: '200' , templet : function(d){
+            {field: 'bookName', title: 'Title', width: '300'}
+            , {field: 'subTitle', title: 'Short introduction', width: '200'}
+            , {field: 'author', title: 'Author', width: '200'}
+            , {type: 'space', title: 'Operation', width: '200' , templet : function(d){
 					//为每一行表格数据生成"修改"与"删除"按钮,并附加data-id属性代表图书编号
-                    return "<button class='layui-btn layui-btn-sm btn-update'  data-id='" + d.bookId + "' data-type='update' onclick='showUpdate(this)'>修改</button>" +
-                        "<button class='layui-btn layui-btn-sm btn-delete'  data-id='" + d.bookId + "'   onclick='showDelete(this)'>删除</button>";
+                    return "<button class='layui-btn layui-btn-sm btn-update'  data-id='" + d.bookId + "' data-type='update' onclick='showUpdate(this)'>Edit</button>" +
+                        "<button class='layui-btn layui-btn-sm btn-delete'  data-id='" + d.bookId + "'   onclick='showDelete(this)'>Delete</button>";
                 }
             }
         ]]
@@ -170,7 +170,7 @@
 		//判断是否包含至少一副图片,默认第一图作为封面显示
         var description = editor.txt.html();
         if(description.indexOf("img") == -1){
-            layui.layer.msg('请放置一副图片作为封面');
+            layui.layer.msg('Upload cover');
             return false;
         }
 		//获取当前表单要提交的地址
@@ -190,7 +190,7 @@
 				//处理成功,关闭对话框,刷新列表,提示操作成功
                 layui.layer.closeAll();
                 table.reload('bookList');
-                layui.layer.msg('数据操作成功,图书列表已刷新');
+                layui.layer.msg('Success');
             }else{
 				//处理失败,提示错误信息
                 layui.layer.msg(json.msg);
@@ -203,7 +203,7 @@
 		//获取当前点击的删除按钮中包含的图书编号
         var bookId = $(obj).data("id");
 		//利用layui的询问对话框进行确认
-        layui.layer.confirm('确定要执行删除操作吗?', {icon: 3, title:'提示'}, function(index){
+        layui.layer.confirm('Confirm?', {icon: 3, title:'Notification'}, function(index){
 					
 				//确认按钮后发送ajax请求,包含图书编号
 				$.get("/management/book/delete/" + bookId, {}, function (json) {
@@ -211,7 +211,7 @@
 						//删除成功刷新表格
 						table.reload('bookList');
 						//提示操作成功
-						layui.layer.msg('数据操作成功,图书列表已刷新');
+						layui.layer.msg('Success');
 						//关闭对话框
 						layui.layer.close(index);
 					}else{

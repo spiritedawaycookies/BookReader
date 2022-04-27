@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
      */
     public IPage<Book> paging(Long categoryId , String order ,Integer page, Integer rows) {
         Page<Book> p = new Page<Book>(page, rows);
-        QueryWrapper<Book> queryWrapper = new QueryWrapper<Book>();
+        QueryWrapper<Book> queryWrapper = new QueryWrapper <Book>();
         if(categoryId != null && categoryId != -1){
             queryWrapper.eq("category_id", categoryId);
         }

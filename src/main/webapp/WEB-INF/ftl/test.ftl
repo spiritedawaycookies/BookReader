@@ -8,8 +8,8 @@
 </head>
 <body>
 <div>
-    <button id="btnRead">读取内容</button>
-    <button id="btnWrite">写入内容</button>
+    <button id="btnRead">Read</button>
+    <button id="btnWrite">Write</button>
 </div>
 <div id="divEditor" style="width: 800px;height:600px"></div>
 <script>
@@ -21,7 +21,7 @@
         alert(content);
     }
     document.getElementById("btnWrite").onclick = function(){
-        var content = "<li style='color:red'>我是<b>新内容</b></li>";
+        var content = "<li style='color:red'>I am <b> new content </b></li>";
         editor.txt.html(content);
     }
 </script>
