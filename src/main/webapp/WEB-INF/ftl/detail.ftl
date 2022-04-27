@@ -108,9 +108,16 @@
             //评论点赞
             $("*[data-evaluation-id]").click(function(){
                 var evaluationId = $(this).data("evaluation-id");
+                var isclicked=$("*[data-evaluation-id='" + evaluationId + "'] input").val();
+               // console.log(isclicked)
                 $.post("/enjoy",{evaluationId:evaluationId},function(json){
                     if(json.code == "0"){
-                       $("*[data-evaluation-id='" + evaluationId + "'] span").text(json.evaluation.enjoy);
+                        if(isclicked=="0") {
+                            //变化数字
+                            //console.log("click");
+                            $("*[data-evaluation-id='" + evaluationId + "'] span").text(json.evaluation.enjoy);
+                            $("*[data-evaluation-id='" + evaluationId + "'] input").val("1");
+                        }
                     }
                 },"json")
             })
@@ -207,6 +214,7 @@
                     <img style="width: 24px;margin-top: -5px;" class="mr-1"
                          src="https://img3.doubanio.com/f/talion/7a0756b3b6e67b59ea88653bc0cfa14f61ff219d/pics/card/ic_like_gray.svg"/>
                     <span>${evaluation.enjoy}</span>
+                    <input id="isclicked-id" type="hidden" value="0">
                 </button>
             </div>
 
