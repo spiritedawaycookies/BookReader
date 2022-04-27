@@ -43,7 +43,7 @@ replay_pid*
 **/applicationContext.xml
 *.iml 
 .idea/
-**/MATA-INF/
+**/META-INF/
 **/readme.md
 **/logback.xml
 **/icode.properties
