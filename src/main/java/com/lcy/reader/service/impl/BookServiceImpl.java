@@ -96,6 +96,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public void deleteBook(Long bookId) {
         bookMapper.deleteById(bookId);
+        //删除图书阅读状态和评论
         QueryWrapper<MemberReadState> mrsQueryWrapper = new QueryWrapper<MemberReadState>();
         mrsQueryWrapper.eq("book_id", bookId);
         memberReadStateMapper.delete(mrsQueryWrapper);

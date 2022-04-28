@@ -28,6 +28,7 @@ public class MBookController {
     private BookService bookService;
     @GetMapping("/index.html")
     public ModelAndView showBook(){
+        //指向management/book.ftl
         return new ModelAndView("/management/book");
     }
 
