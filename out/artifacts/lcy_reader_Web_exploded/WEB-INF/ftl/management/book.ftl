@@ -134,7 +134,7 @@
 		//弹出"编辑图书"对话框
         layui.layer.open({
             id: "dlgBook", //指定div
-            title: "编辑图书", //标题
+            title: "Edit book", //标题
             type: 1, 
             content: $('#dialog').html(), //设置对话框内容,复制自dialog DIV
             area: ['820px', '730px'], //设置对话框宽度高度
