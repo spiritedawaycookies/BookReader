@@ -86,7 +86,7 @@
                    autocomplete="off" class="layui-input">
         </div>
 
-        <div style="margin-top: 30px;font-size: 130%">Details</div>
+        <div style="margin-top: 30px;font-size: 130%">Details(the first image is the default cover)</div>
         <div class="layui-form-item" >
 			<!-- wangEditor编辑器 -->
             <div id="editor" style="width: 100%">

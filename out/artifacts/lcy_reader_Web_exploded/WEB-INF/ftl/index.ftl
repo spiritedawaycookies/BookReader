@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
     <meta charset="UTF-8">
-    <title>Book Reviews</title>
+    <title>Books</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -37,17 +37,28 @@
         .col- * {
             padding: 0px;
         }
+        .cover {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 190px;
+        }
     </style>
     <#--定义模板-->
     <script type="text/html" id="tpl">
-        <a href="/book/{{bookId}}" style="color: inherit">
-            <div class="row mt-2 book">
-                <div class="col-4 mb-2 pr-2">
-                    <img class="img-fluid" src="{{cover}}">
-                </div>
-                <div class="col-8  mb-2 pl-0">
-                    <h5 class="text-truncate">{{bookName}}</h5>
 
+            <div class="row mt-2 book">
+
+                <div class="col-4 mb-2 pr-2">
+                    <a href="/book/{{bookId}}">
+                    <img class="img-fluid cover" src="{{cover}}">
+                    </a>
+                </div>
+
+                <div class="col-8  mb-2 pl-0">
+                    <a href="/book/{{bookId}}" style="color: inherit">
+                    <h5 class="text-truncate">{{bookName}}</h5>
+                </a>
                     <div class="mb-2 bg-light small  p-2 w-100 text-truncate">Author : {{author}}</div>
                     {{set temp=subTitle.substring(0,100);}}
                     {{set parts = temp.split(' ').slice(0,15);}}
@@ -56,11 +67,11 @@
                     <p>
                         <span class="stars" data-score="{{evaluationScore}}" title="gorgeous"></span>
                         <span class="mt-2 ml-2">{{evaluationScore}}</span>
-                        <span class="mt-2 ml-2">{{evaluationQuantity}} reviews</span>
+                        <span class="mt-2 ml-2">{{evaluationQuantity}} <a href="/book/{{bookId}}" style="color: inherit">reviews</a></span>
                     </p>
                 </div>
             </div>
-        </a>
+
 
         <hr>
     </script>

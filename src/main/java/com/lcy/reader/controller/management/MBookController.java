@@ -100,6 +100,7 @@ public class MBookController {
         }
 
         IPage<Book> pageObject = bookService.paging(null, null, page, limit);
+        //layui的要求
         Map result = new HashMap();
         result.put("code", "0");
         result.put("msg", "success");
@@ -134,12 +135,14 @@ public class MBookController {
     public Map updateBook(Book book){
         Map result = new HashMap();
         try {
+            //不要直接用那个book update,先用它从数据库中提取出来原始的book,比较安全
             Book rawBook = bookService.selectById(book.getBookId());
             rawBook.setBookName(book.getBookName());
             rawBook.setSubTitle(book.getSubTitle());
             rawBook.setAuthor(book.getAuthor());
             rawBook.setCategoryId(book.getCategoryId());
             rawBook.setDescription(book.getDescription());
+            //是不是也更新了封面?
             Document doc = Jsoup.parse(book.getDescription());
             String cover = doc.select("img").first().attr("src");
             rawBook.setCover(cover);
