@@ -2,6 +2,8 @@ package com.lcy.reader.controller.management;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lcy.reader.entity.Book;
+import com.lcy.reader.entity.Member;
+import com.lcy.reader.entity.User;
 import com.lcy.reader.service.BookService;
 import com.lcy.reader.service.exception.BussinessException;
 import org.jsoup.Jsoup;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,22 +29,27 @@ import java.util.Map;
 public class MBookController {
     @Resource
     private BookService bookService;
+
     @GetMapping("/index.html")
-    public ModelAndView showBook(){
-        //指向management/book.ftl
-        return new ModelAndView("/management/book");
+    public ModelAndView showBook(HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        if (user != null) {
+            //指向management/book.ftl
+            return new ModelAndView("/management/book");
+        } else return new ModelAndView("/management/error404");
     }
 
     /**
      * wangEditor文件上传
-     * @param file 上传文件
+     *
+     * @param file    上传文件
      * @param request 原生请求对象
      * @return
      * @throws IOException
      */
     @PostMapping("/upload")
     @ResponseBody
-    public Map upload(@RequestParam("img") MultipartFile file , HttpServletRequest request) throws IOException {
+    public Map upload(@RequestParam("img") MultipartFile file, HttpServletRequest request) throws IOException {
         //得到上传目录
         String uploadPath = request.getServletContext().getResource("/").getPath() + "/upload/";
         //文件名
@@ -51,19 +59,20 @@ public class MBookController {
         //保存文件到upload目录
         file.transferTo(new File(uploadPath + fileName + suffix));
         Map result = new HashMap();
-        result.put("errno", 0);
+        result.put("error", 0);
         result.put("data", new String[]{"/upload/" + fileName + suffix});
         return result;
     }
 
     /**
      * 新增图书
+     *
      * @param book
      * @return
      */
     @PostMapping("/create")
     @ResponseBody
-    public Map createBook(Book book){
+    public Map createBook(Book book) {
         Map result = new HashMap();
         try {
             book.setEvaluationQuantity(0);
@@ -75,7 +84,7 @@ public class MBookController {
             bookService.createBook(book);
             result.put("code", "0");
             result.put("msg", "success");
-        }catch (BussinessException ex){
+        } catch (BussinessException ex) {
             ex.printStackTrace();
             result.put("code", ex.getCode());
             result.put("msg", ex.getMsg());
@@ -85,18 +94,19 @@ public class MBookController {
 
     /**
      * 分页查询图书数据
+     *
      * @param page
      * @param limit
      * @return
      */
     @GetMapping("/list")
     @ResponseBody
-    public Map list(Integer page , Integer limit){
-        if(page == null){
+    public Map list(Integer page, Integer limit) {
+        if (page == null) {
             page = 1;
         }
 
-        if(limit == null){
+        if (limit == null) {
             limit = 10;
         }
 
@@ -112,12 +122,13 @@ public class MBookController {
 
     /**
      * 获取图书详细信息
+     *
      * @param bookId
      * @return
      */
     @GetMapping("/id/{id}")
     @ResponseBody
-    public Map selectById(@PathVariable("id") Long bookId){
+    public Map selectById(@PathVariable("id") Long bookId) {
         Book book = bookService.selectById(bookId);
         Map result = new HashMap();
         result.put("code", "0");
@@ -128,12 +139,13 @@ public class MBookController {
 
     /**
      * 更新图书数据
+     *
      * @param book
      * @return
      */
     @PostMapping("/update")
     @ResponseBody
-    public Map updateBook(Book book){
+    public Map updateBook(Book book) {
         Map result = new HashMap();
         try {
             //不要直接用那个book update,先用它从数据库中提取出来原始的book,比较安全
@@ -150,7 +162,7 @@ public class MBookController {
             bookService.updateBook(rawBook);
             result.put("code", "0");
             result.put("msg", "success");
-        }catch (BussinessException ex){
+        } catch (BussinessException ex) {
             ex.printStackTrace();
             result.put("code", ex.getCode());
             result.put("msg", ex.getMsg());
@@ -160,13 +172,13 @@ public class MBookController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public Map deleteBook(@PathVariable("id") Long bookId){
+    public Map deleteBook(@PathVariable("id") Long bookId) {
         Map result = new HashMap();
-        try{
+        try {
             bookService.deleteBook(bookId);
             result.put("code", "0");
             result.put("msg", "success");
-        }catch (BussinessException ex){
+        } catch (BussinessException ex) {
             ex.printStackTrace();
             result.put("code", ex.getCode());
             result.put("msg", ex.getMsg());

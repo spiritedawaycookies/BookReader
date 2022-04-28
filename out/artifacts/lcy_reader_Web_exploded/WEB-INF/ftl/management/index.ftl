@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>慕课书评网数据管理系统</title>
+    <title>Books Management System</title>
     <link rel="stylesheet" href="/resources/layui/css/layui.css">
 </head>
 
@@ -13,7 +13,7 @@
     <!--头部导航栏-->
     <div class="layui-header">
         <!--系统标题-->
-        <div class="layui-logo" style="font-size:18px">慕课书评网数据管理系统</div>
+        <div class="layui-logo" style="font-size:18px">Management System</div>
         <!--右侧当前用户信息-->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -26,7 +26,7 @@
                 </a>
             </li>
             <!--注销按钮-->
-            <li class="layui-nav-item"><a href="/management/logout">注销</a></li>
+            <li class="layui-nav-item"><a href="/management/logout">Logout</a></li>
         </ul>
     </div>
     <!--左侧菜单栏-->
@@ -38,10 +38,10 @@
 
 
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:void(0)">数据管理</a>
+                        <a href="javascript:void(0)">Data Management</a>
                         <dl class="layui-nav-child module" data-node-id="xxx">
-                            <dd><a href="/management/book/index.html" target="ifmMain">图书管理</a></dd>
-                            <dd><a href="短评管理.html" target="ifmMain">短评管理
+                            <dd><a href="/management/book/index.html" target="ifmMain">Books Management</a></dd>
+                            <dd><a href="短评管理.html" target="ifmMain">Reviews Management
                                 </a></dd>
                         </dl>
                     </li>
@@ -57,7 +57,7 @@
     </div>
     <!--版权信息-->
     <div class="layui-footer">
-        Copyright © imooc. All Rights Reserved.
+        Copyright © lcy. All Rights Reserved.
     </div>
 </div>
 <!--LayUI JS文件-->
