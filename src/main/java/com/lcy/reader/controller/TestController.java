@@ -21,4 +21,9 @@ public class TestController {
         result.put("test", "测试文本");
         return result;
     }
+    @GetMapping("management/test/t3")
+    public ModelAndView test3(){
+        //自动扫描所有management/test各种文件后缀的
+        return new ModelAndView("/management/test");
+    }
 }
