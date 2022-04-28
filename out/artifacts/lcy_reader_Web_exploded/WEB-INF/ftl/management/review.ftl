@@ -86,7 +86,7 @@
                 field: 'disableTime',
                 title: 'Disable Time',
                 templet: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     if (data.disableTime == null) return "";
                     else {
                         return layui.util.toDateString(data.disableTime, 'MM-dd-yyyy HH:mm');

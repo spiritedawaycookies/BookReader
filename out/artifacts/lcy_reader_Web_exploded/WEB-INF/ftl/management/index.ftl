@@ -40,8 +40,8 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:void(0)">Data Management</a>
                         <dl class="layui-nav-child module" data-node-id="xxx">
-                            <dd><a href="/management/book/index.html" target="ifmMain">Books Management</a></dd>
-                            <dd><a href="短评管理.html" target="ifmMain">Reviews Management
+                            <dd><a href="/management/book/index.html" target="ifmMain" >Books Management</a></dd>
+                            <dd><a href="/management/review/index.html" target="ifmMain" >Reviews Management
                                 </a></dd>
                         </dl>
                     </li>
@@ -52,7 +52,9 @@
         </div>
     </div>
     <!--主体部分采用iframe嵌入其他页面-->
+    <input id="showIfmMain" type="hidden" value="book"/>
     <div class="layui-body" style="overflow-y: hidden">
+
         <iframe name="ifmMain" style="border: 0px;width: 100%;height: 100%" src="/management/book/index.html"></iframe>
     </div>
     <!--版权信息-->
@@ -63,6 +65,7 @@
 <!--LayUI JS文件-->
 <script src="/resources/layui/layui.all.js"></script>
 <script>
+
     //将所有功能根据parent_id移动到指定模块下
     layui.$(".function").each(function () {
         var func = layui.$(this);
@@ -71,6 +74,7 @@
     });
     //刷新折叠菜单
     layui.element.render('nav');
+
 </script>
 </body>
 </html>
