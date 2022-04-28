@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books Management</title>
+    <title>Reviews Management</title>
     <style>
         #dlgBook{
             padding: 10px
@@ -16,7 +16,7 @@
 
     <script type="text/html" id="toolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" id="btnAdd" onclick="showCreate()">Add</button>
+
         </div>
     </script>
 
