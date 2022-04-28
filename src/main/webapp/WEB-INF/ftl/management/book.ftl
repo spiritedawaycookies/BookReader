@@ -9,7 +9,8 @@
         }
     </style>
     <link rel="stylesheet" href="/resources/layui/css/layui.css">
-
+    <script src="/resources/jquery.3.3.1.min.js"></script>
+    <script src="/resources/jquery.i18n.properties.min.js"></script>
     <script src="/resources/wangEditor.min.js"></script>
 
 
@@ -18,7 +19,30 @@
             <button class="layui-btn layui-btn-sm" id="btnAdd" onclick="showCreate()">Add</button>
         </div>
     </script>
+    <script>
 
+
+        $.i18n.properties({
+            name: 'strings',
+            path: '/resources/i18n/',
+            mode: 'map',
+            language: "en_US",
+            async: false
+        });
+
+        //初始化i18n函数
+        function i18n(msgKey) {
+            try {
+                return $.i18n.prop(msgKey);
+            } catch (e) {
+                return msgKey;
+            }
+        }
+        console.log(i18n("common.btn.articlePage"));
+        //获取国际化翻译值
+        //console.log(i18n('user.login.username'));
+
+    </script>
 </head>
 <body>
 
@@ -35,7 +59,7 @@
 			<!-- 图书类别 -->
             <select id="categoryId" name="categoryId" lay-verify="required" lay-filter=
 			"categoryId">
-                <option value=""></option>
+                <option value="">Select category</option>
                 <option value="1">Fiction</option>
 				<option value="2">Non-fiction</option>
 				<option value="3">Children's</option>
@@ -145,7 +169,7 @@
 		//弹出"新增图书"对话框
         layui.layer.open({
             id: "dlgBook",
-            title: "新增图书",
+            title: "Add a book",
             type: 1,
             content: $('#dialog').html(),
             area: ['820px', '730px'],
